@@ -1,14 +1,10 @@
 import { Form } from "@douyinfe/semi-ui";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { PropsWithChildren } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { lazy, ObjectSchema } from "yup";
+import { FormProvider, Resolver, useForm } from "react-hook-form";
 
 export type SchemaFormProps = {
   defaultValues?: any;
-  yupSchema?:
-    | ObjectSchema<any, any, any, any>
-    | ReturnType<typeof lazy<ObjectSchema<any, any, any, any>>>;
+  resolver?: Resolver<any>;
   onSubmit: (values: any) => void;
 };
 
@@ -16,11 +12,11 @@ export const SchemaForm = ({
   children,
   onSubmit,
   defaultValues,
-  yupSchema,
+  resolver,
 }: PropsWithChildren<SchemaFormProps>) => {
   const methods = useForm({
     defaultValues,
-    resolver: yupSchema ? yupResolver(yupSchema) : undefined,
+    resolver,
   });
 
   return (

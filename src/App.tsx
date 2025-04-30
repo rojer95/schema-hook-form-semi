@@ -19,6 +19,7 @@ import * as yup from "yup";
 import { zh } from "yup-locales";
 import { Field, FieldArray, SchemaForm } from "../lib";
 import { FieldArrayTable } from "../lib/components/field-array";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 yup.setLocale(zh);
 scan({ enabled: true });
@@ -84,7 +85,7 @@ export default () => {
         onSubmit={(values) => {
           console.log("values", values);
         }}
-        yupSchema={schema}
+        resolver={yupResolver(schema)}
       >
         <Field.Input name="name" label="姓名" />
         <Field.RadioGroup name="sex" label="性别" required>
